@@ -13,5 +13,11 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('admin.home');
 
     $router->resource('test', TestController::class);
+    $router->resource('category', CategoryController::class);
+    $router->resource('product', ProductController::class);
+    $router->resource('group-product', GroupProductController::class);
+    $router->resource('seckill-product', SeckillProductController::class);
+	$router->resource('spec', SpecController::class);
+	$router->resource('coupon', CouponController::class);
 
 });
