@@ -19,5 +19,8 @@ Route::group([
     $router->resource('seckill-product', SeckillProductController::class);
 	$router->resource('spec', SpecController::class);
 	$router->resource('coupon', CouponController::class);
+    $router->resource('user', UserController::class);
+    $router->resource('comment', CommentController::class);
+    $router->resource('order', OrderController::class);
 
 });

@@ -35,6 +35,9 @@ class ProductController extends AdminController
         $grid->column('status', '是否上架')->display(function($status){
             return $status ? '是':'否';
         });
+        $grid->column('recommend', '是否推荐')->display(function($recommend){
+            return $recommend ? '是':'否';
+        });
         $grid->column('sale', '销量');
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -74,12 +77,14 @@ class ProductController extends AdminController
     {
         $form = new Form(new Product());
 
-        $form->text('title', '商品名称');
-        $form->textarea('content', '商品描述');
-        $form->select('category_id', '商品分类')->options(Category::all()->pluck('name', 'id'));
-        $form->multipleImage('images', '图片')->pathColumn('path')->removable();
-        $form->currency('price', '价格');
+        $form->text('title', '商品名称')->rules('required');
+        $form->textarea('content', '商品描述')->rules('required');
+        $form->select('category_id', '商品分类')->options(Category::all()->pluck('name', 'id'))->rules('required');
+        $form->multipleImage('images', '图片')->pathColumn('path')->removable()->rules('required');
+        $form->currency('price', '价格')->rules('required');
+        $form->decimal('weight', '重量')->rules('required');
         $form->switch('status', '是否上架')->default(1);
+        $form->switch('recommend', '是否推荐')->default(0);
 
         return $form;
     }

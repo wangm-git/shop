@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\Category;
+use App\Model\Comment;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class CategoryController extends AdminController
+class CommentController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = '商品分类';
+    protected $title = 'App\Model\Comment';
 
     /**
      * Make a grid builder.
@@ -24,12 +24,18 @@ class CategoryController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Category());
+        $grid = new Grid(new Comment());
 
         $grid->column('id', __('Id'));
-        $grid->column('name', __('Name'));
+        $grid->column('content', __('Content'));
+        $grid->column('product.title', __('Product id'));
+        $grid->column('image', __('Image'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+        });
 
         return $grid;
     }
@@ -42,10 +48,12 @@ class CategoryController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Category::findOrFail($id));
+        $show = new Show(Comment::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('name', __('Name'));
+        $show->field('content', __('Content'));
+        $show->field('product_id', __('Product id'));
+        $show->field('image', __('Image'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -59,9 +67,11 @@ class CategoryController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Category());
+        $form = new Form(new Comment());
 
-        $form->text('name', __('Name'))->rules('required');
+        $form->textarea('content', __('Content'));
+        $form->number('product_id', __('Product id'));
+        $form->image('image', __('Image'));
 
         return $form;
     }

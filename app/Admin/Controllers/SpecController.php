@@ -71,10 +71,10 @@ class SpecController extends AdminController
     {
         $form = new Form(new Spec());
 
-        $form->text('name', __('Name'));
-        $form->select('product_id', '商品')->options(Product::where('status', 1)->get()->pluck('title', 'id'));
-        $form->number('stock', __('Stock'));
-        $form->currency('price', __('Price'));
+        $form->text('name', __('Name'))->rules('required');
+        $form->select('product_id', '商品')->options(Product::where('status', 1)->get()->pluck('title', 'id'))->rules('required');
+        $form->number('stock', __('Stock'))->rules('required');
+        $form->currency('price', __('Price'))->rules('required');
         $form->switch('status', __('Status'))->default(1);
 
         return $form;

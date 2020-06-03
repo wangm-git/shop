@@ -70,12 +70,12 @@ class GroupProductController extends AdminController
     {
         $form = new Form(new GroupProduct());
 
-        $form->select('product_id', '商品')->options(Product::where('status', 1)->get()->pluck('title', 'id'));
-        $form->number('num', __('Num'));
-        $form->currency('price', __('Price'));
-        $form->number('stock', __('Stock'));
-        $form->datetime('start_at', __('start_at'))->default(date('Y-m-d H:i:s'));
-        $form->datetime('expire_at', __('Expire at'))->default(date('Y-m-d H:i:s'));
+        $form->select('product_id', '商品')->options(Product::where('status', 1)->get()->pluck('title', 'id'))->rules('required');
+        $form->number('num', __('Num'))->rules('required');
+        $form->currency('price', __('Price'))->rules('required');
+        $form->number('stock', __('Stock'))->rules('required');
+        $form->datetime('start_at', __('start_at'))->default(date('Y-m-d H:i:s'))->rules('required');
+        $form->datetime('expire_at', __('Expire at'))->default(date('Y-m-d H:i:s'))->rules('required');
 
         return $form;
     }

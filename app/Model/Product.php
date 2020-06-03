@@ -23,14 +23,24 @@ class Product extends Model
         return $this->hasMany('App\Model\ProductImage', 'product_id');
     }
 
-    public function seckillProduct()
+    public function seckillProducts()
     {
         return $this->hasMany('App\Model\SeckillProduct', 'product_id');
     }
 
-    public function groupProduct()
+    public function groupProducts()
     {
         return $this->hasMany('App\Model\GroupProduct', 'product_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Model\Comment', 'product_id');
+    }
+
+    public function orderProducts()
+    {
+        return $this->hasMany('App\Model\OrderProduct', 'product_id');
     }
 
     public function setImagesAttribute($images)
