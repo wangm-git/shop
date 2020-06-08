@@ -72,6 +72,7 @@ class SpecController extends AdminController
         $form = new Form(new Spec());
 
         $form->text('name', __('Name'))->rules('required');
+        $form->decimal('weight', '重量')->rules('required');
         $form->select('product_id', '商品')->options(Product::where('status', 1)->get()->pluck('title', 'id'))->rules('required');
         $form->number('stock', __('Stock'))->rules('required');
         $form->currency('price', __('Price'))->rules('required');

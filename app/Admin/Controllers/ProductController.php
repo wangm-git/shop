@@ -78,9 +78,9 @@ class ProductController extends AdminController
         $form = new Form(new Product());
 
         $form->text('title', '商品名称')->rules('required');
-        $form->textarea('content', '商品描述')->rules('required');
+        $form->editor('content', '商品描述')->rules('required');
         $form->select('category_id', '商品分类')->options(Category::all()->pluck('name', 'id'))->rules('required');
-        $form->multipleImage('images', '图片')->pathColumn('path')->removable()->rules('required');
+        $form->multipleImage('images', '图片')->pathColumn('path')->removable();
         $form->currency('price', '价格')->rules('required');
         $form->decimal('weight', '重量')->rules('required');
         $form->switch('status', '是否上架')->default(1);

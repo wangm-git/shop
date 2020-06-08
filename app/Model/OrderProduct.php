@@ -8,6 +8,8 @@ class OrderProduct extends Model
 {
 	protected $table = 'order_products';
 
+    public $timestamps=false;
+
     public function order()
     {
         return $this->belongsTo('App\Model\Order', 'user_id');
@@ -21,6 +23,11 @@ class OrderProduct extends Model
     public function spec()
     {
         return $this->belongsTo('App\Model\Spec', 'spec_id');
+    }
+
+    public function productImages()
+    {
+        return $this->hasMany('App\Model\productImage', 'product_id','product_id');
     }
 
 }

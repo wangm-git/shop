@@ -62,6 +62,7 @@ class CategoryController extends AdminController
         $form = new Form(new Category());
 
         $form->text('name', __('Name'))->rules('required');
+        $form->image('image', 'image')->removable();
 
         return $form;
     }

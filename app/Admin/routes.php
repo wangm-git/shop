@@ -22,5 +22,7 @@ Route::group([
     $router->resource('user', UserController::class);
     $router->resource('comment', CommentController::class);
     $router->resource('order', OrderController::class);
+    $router->resource('banner', BannerController::class);
+
 
 });
