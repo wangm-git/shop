@@ -34,3 +34,5 @@ Route::get('/order/list','OrderController@list');
 Route::post('/pay/placeOrder','PayController@placeOrder');
 Route::post('/pay/placeOrderFromCart','PayController@placeOrderFromCart');
 Route::get('/pay/show','PayController@show');
+
+Route::post('/comment/add','CommentController@add');

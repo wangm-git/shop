@@ -13,6 +13,7 @@ use App\Model\OrderProduct;
 use App\Model\Order;
 use App\Model\Cart;
 use App\Model\Address;
+use Pay;
 
 class PayController extends Controller
 {
@@ -173,6 +174,28 @@ class PayController extends Controller
             return [];
         }
         
+    }
+
+    public function pay(Request $request)
+    {
+        $order = Order::where('order_no', $request->order_no)->first();
+        $address = Address::find($request->address_id);
+
+        $order->name = $address->name;
+        $order->phone = $address->phone;
+        $order->address = $address->province.$address->city.$address->area.$address->address;
+        $order->save();
+
+        $wechat = [
+            'out_trade_no' => $request->order_no,
+            'body' => $order->title,
+            'total_fee' => ($order->pay+$order->Postage) * 100,
+            // 'total_fee' => 1,
+            'openid' => $request->open_id,
+        ];
+
+        $result = Pay::wechat()->miniapp($wechat);
+        return json_encode($result);
     }
 
     public function notify()

@@ -10,6 +10,8 @@ use App\Model\Comment;
 use App\Model\GroupProduct;
 use App\Model\SeckillProduct;
 use App\Model\Postage;
+use App\Model\Banner;
+
 
 class ProductController extends Controller
 {
@@ -17,13 +19,15 @@ class ProductController extends Controller
     {
     	$categories = Category::all();
     	// banner
+        $banners = Banner::where('status', 1)->get();
+
     	$recommendProducts = Product::with('images')->where('recommend', 1)->where('status', 1)->get();
 
     	$groupProducts = GroupProduct::with('product')->with('product.images')->where('start_at', '<', now())->where('expire_at', '>', now())->where('stock', '>', 0)->get();
 
     	$seckillProducts = SeckillProduct::with('product')->where('start_at', '<', now())->where('expire_at', '>', now())->where('stock', '>', 0)->get();
 
-    	return json_encode(['category' => $categories, 'recommend_product' => $recommendProducts, 'group_product' => $groupProducts, 'seckill_product' => $seckillProducts]);
+    	return json_encode(['category' => $categories, 'banner' => $banners, 'recommend_product' => $recommendProducts, 'group_product' => $groupProducts, 'seckill_product' => $seckillProducts]);
     }
 
     public function detail($id)
